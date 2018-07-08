@@ -5,8 +5,6 @@
 namespace Snooper
 {
     using System;
-    using System.Linq;
-    using ColossalFramework.Plugins;
     using ICities;
     using UnityEngine;
 
@@ -18,7 +16,6 @@ namespace Snooper
         private const ulong WorkshopId = 0;
 
         private readonly string modVersion = GitVersion.GetAssemblyVersion(typeof(SnooperMod).Assembly);
-        private readonly string modPath = GetModPath();
         private readonly MethodPatcher patcher;
 
         public SnooperMod()
@@ -85,18 +82,7 @@ namespace Snooper
             WorldInfoPanelPatches.CitizenInfoPanel?.Disable();
             WorldInfoPanelPatches.VehicleInfoPanel?.Disable();
             WorldInfoPanelPatches.CitizenInfoPanel = null;
-        }
 
-        private static string GetModPath()
-        {
-            string assemblyName = typeof(SnooperMod).Assembly.GetName().Name;
-
-            PluginManager.PluginInfo pluginInfo = PluginManager.instance.GetPluginsInfo()
-                .FirstOrDefault(pi => pi.name == assemblyName || pi.publishedFileID.AsUInt64 == WorkshopId);
-
-            return pluginInfo == null
-                ? Environment.CurrentDirectory
-                : pluginInfo.modPath;
         }
 
         private void SafeRevertPatches()
