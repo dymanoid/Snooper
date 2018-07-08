@@ -13,8 +13,6 @@ namespace Snooper
     /// </summary>
     public sealed class SnooperMod : LoadingExtensionBase, IUserMod
     {
-        private const ulong WorkshopId = 0;
-
         private readonly string modVersion = GitVersion.GetAssemblyVersion(typeof(SnooperMod).Assembly);
         private readonly MethodPatcher patcher;
 
