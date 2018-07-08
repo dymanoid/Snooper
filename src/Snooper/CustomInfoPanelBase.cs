@@ -206,7 +206,7 @@ namespace Snooper
             newHeight = defaultHeight + originPanel.height + originPanel.padding.bottom + originPanel.padding.top;
 
             originButton.eventClick += OriginButtonClick;
-            originLabel.text = "⚑➜";
+            originLabel.text = "▣";
             originPanel.isVisible = false;
         }
 
