@@ -13,22 +13,26 @@ namespace Snooper
     internal sealed class CustomVehicleInfoPanel : CustomInfoPanelBase<VehicleWorldInfoPanel>
     {
         private const string GameInfoPanelName = "(Library) CitizenVehicleWorldInfoPanel";
-        private GetDriverInstanceDelegate getDriverInstance;
+        private const string GetDriverInstanceMethodName = "GetDriverInstance";
+
+        private GetDriverInstanceDelegate<PassengerCarAI> passengerCarAIGetDriverInstance;
+        private GetDriverInstanceDelegate<BicycleAI> bicycleAIGetDriverInstance;
 
         private CustomVehicleInfoPanel(string panelName)
             : base(panelName)
         {
             try
             {
-                getDriverInstance = FastDelegate.Create<PassengerCarAI, GetDriverInstanceDelegate>("GetDriverInstance");
+                passengerCarAIGetDriverInstance = FastDelegate.Create<PassengerCarAI, GetDriverInstanceDelegate<PassengerCarAI>>(GetDriverInstanceMethodName);
+                bicycleAIGetDriverInstance = FastDelegate.Create<BicycleAI, GetDriverInstanceDelegate<BicycleAI>>(GetDriverInstanceMethodName);
             }
             catch (Exception ex)
             {
-                Debug.LogError($"The 'Snooper' mod failed to obtain the GetDriverInstance method. Error message: " + ex);
+                Debug.LogError($"The 'Snooper' mod failed to obtain at least one of the GetDriverInstance methods. Error message: " + ex);
             }
         }
 
-        private delegate ushort GetDriverInstanceDelegate(PassengerCarAI instance, ushort vehicleId, ref Vehicle vehicle);
+        private delegate ushort GetDriverInstanceDelegate<T>(T instance, ushort vehicleId, ref Vehicle vehicle);
 
         /// <summary>Enables the vehicle info panel customization. Can return null on failure.</summary>
         /// <returns>An instance of the <see cref="CustomVehicleInfoPanel"/> object that can be used for disabling
@@ -46,15 +50,13 @@ namespace Snooper
             ushort instanceId = 0;
             try
             {
-                if (getDriverInstance == null)
+                if (passengerCarAIGetDriverInstance == null || bicycleAIGetDriverInstance == null)
                 {
-                    Debug.Log("SNOOPER: delegate is null");
                     return;
                 }
 
                 if (instance.Type != InstanceType.Vehicle || instance.Vehicle == 0)
                 {
-                    Debug.Log($"SNOOPER: not vehicle or vehicle instance == 0");
                     return;
                 }
 
@@ -62,28 +64,31 @@ namespace Snooper
                 vehicleId = VehicleManager.instance.m_vehicles.m_buffer[vehicleId].GetFirstVehicle(vehicleId);
                 if (vehicleId == 0)
                 {
-                    Debug.Log("SNOOPER: first vehicle is null");
                     return;
                 }
 
                 VehicleInfo vehicleInfo = VehicleManager.instance.m_vehicles.m_buffer[vehicleId].Info;
-                if (vehicleInfo.m_vehicleType != VehicleInfo.VehicleType.Bicycle && !(vehicleInfo.m_vehicleAI is PassengerCarAI))
-                {
-                    Debug.Log($"SNOOPER: vehicle type wrong: {vehicleInfo.m_vehicleType}, type = {vehicleInfo.m_vehicleAI.GetType().Name}");
-                    return;
-                }
 
                 try
                 {
-                    // Same implementation for Bicycle and Passenger Car.
-                    // HACK: calling an instance method with NULL as 'this', but luckily 'this' is not used there.
-                    instanceId = getDriverInstance(null, vehicleId, ref VehicleManager.instance.m_vehicles.m_buffer[vehicleId]);
-                    Debug.Log($"SNOOPER: instanceId = {instanceId}");
+                    switch (vehicleInfo.m_vehicleAI)
+                    {
+                        case BicycleAI bicycleAI:
+                            instanceId = bicycleAIGetDriverInstance(bicycleAI, vehicleId, ref VehicleManager.instance.m_vehicles.m_buffer[vehicleId]);
+                            break;
+
+                        case PassengerCarAI passengerCarAI:
+                            instanceId = passengerCarAIGetDriverInstance(passengerCarAI, vehicleId, ref VehicleManager.instance.m_vehicles.m_buffer[vehicleId]);
+                            break;
+
+                        default:
+                            return;
+                    }
                 }
-                catch (Exception ex)
+                catch
                 {
-                    Debug.Log($"SNOOPER: exception on calling delegate: " + ex);
-                    getDriverInstance = null;
+                    passengerCarAIGetDriverInstance = null;
+                    bicycleAIGetDriverInstance = null;
                 }
             }
             finally

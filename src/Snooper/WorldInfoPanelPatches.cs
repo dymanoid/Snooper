@@ -28,10 +28,18 @@ namespace Snooper
             }
 
 #pragma warning disable SA1313 // Parameter names must begin with lower-case letter
-            private static void Postfix(ref InstanceID ___m_InstanceID)
+            private static void Postfix(WorldInfoPanel __instance, ref InstanceID ___m_InstanceID)
             {
-                CitizenInfoPanel?.UpdateOrigin(ref ___m_InstanceID);
-                VehicleInfoPanel?.UpdateOrigin(ref ___m_InstanceID);
+                switch (__instance)
+                {
+                    case CitizenWorldInfoPanel _:
+                        CitizenInfoPanel?.UpdateOrigin(ref ___m_InstanceID);
+                        break;
+
+                    case VehicleWorldInfoPanel _:
+                        VehicleInfoPanel?.UpdateOrigin(ref ___m_InstanceID);
+                        break;
+                }
             }
 #pragma warning restore SA1313 // Parameter names must begin with lower-case letter
         }
