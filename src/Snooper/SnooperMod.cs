@@ -80,9 +80,10 @@ namespace Snooper
             SafeRevertPatches();
 
             WorldInfoPanelPatches.CitizenInfoPanel?.Disable();
-            WorldInfoPanelPatches.VehicleInfoPanel?.Disable();
             WorldInfoPanelPatches.CitizenInfoPanel = null;
 
+            WorldInfoPanelPatches.VehicleInfoPanel?.Disable();
+            WorldInfoPanelPatches.VehicleInfoPanel = null;
         }
 
         private void SafeRevertPatches()
