@@ -13,7 +13,7 @@ namespace Snooper
     /// <summary>
     /// The main class of the Snooper mod.
     /// </summary>
-    public sealed class SnooperMod : IUserMod
+    public sealed class SnooperMod : LoadingExtensionBase, IUserMod
     {
         private const ulong WorkshopId = 0;
 
@@ -40,11 +40,24 @@ namespace Snooper
         public string Description => "Shows the origin buildings where the citizens are moving from. Version: " + modVersion;
 
         /// <summary>
-        /// Called when this mod is enabled.
+        /// Called when a game level is loaded. If applicable, activates the Snooper mod
+        /// for the loaded level.
         /// </summary>
-        public void OnEnabled()
+        ///
+        /// <param name="mode">The <see cref="LoadMode"/> a game level is loaded in.</param>
+        public override void OnLevelLoaded(LoadMode mode)
         {
-            Debug.Log("The 'Snooper' mod has been enabled, version: " + modVersion);
+            switch (mode)
+            {
+                case LoadMode.LoadGame:
+                case LoadMode.NewGame:
+                case LoadMode.LoadScenario:
+                case LoadMode.NewGameFromScenario:
+                    break;
+
+                default:
+                    return;
+            }
 
             try
             {
@@ -61,15 +74,14 @@ namespace Snooper
         }
 
         /// <summary>
-        /// Called when this mod is disabled.
+        /// Called when a game level is about to be unloaded. If the Snooper mod was activated
+        /// for this level, deactivates the mod for this level.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "Must be instance method due to C:S API")]
-        public void OnDisabled()
+        public override void OnLevelUnloading()
         {
             SafeRevertPatches();
             CitizenWorldInfoPanelPatch.CitizenInfoPanel?.Disable();
             CitizenWorldInfoPanelPatch.CitizenInfoPanel = null;
-            Debug.Log("The 'Snooper' mod has been disabled.");
         }
 
         private static string GetModPath()
