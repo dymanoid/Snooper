@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2000
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snooper", "Snooper\Snooper.csproj", "{3A16420B-2BC3-4A65-9948-689CF7132E93}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Harmony", "Harmony\Harmony\Harmony.csproj", "{7101569C-F35F-48F1-B9BA-65B1CF48009B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3A16420B-2BC3-4A65-9948-689CF7132E93}.Debug|x64.ActiveCfg = Debug|x64
+		{3A16420B-2BC3-4A65-9948-689CF7132E93}.Debug|x64.Build.0 = Debug|x64
+		{3A16420B-2BC3-4A65-9948-689CF7132E93}.Release|x64.ActiveCfg = Release|x64
+		{3A16420B-2BC3-4A65-9948-689CF7132E93}.Release|x64.Build.0 = Release|x64
+		{7101569C-F35F-48F1-B9BA-65B1CF48009B}.Debug|x64.ActiveCfg = Debug-3.5|Any CPU
+		{7101569C-F35F-48F1-B9BA-65B1CF48009B}.Debug|x64.Build.0 = Debug-3.5|Any CPU
+		{7101569C-F35F-48F1-B9BA-65B1CF48009B}.Release|x64.ActiveCfg = Release-3.5|Any CPU
+		{7101569C-F35F-48F1-B9BA-65B1CF48009B}.Release|x64.Build.0 = Release-3.5|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7AB9F6EA-7CAE-4CB0-849D-63673C3B73F5}
+	EndGlobalSection
+EndGlobal
