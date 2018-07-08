@@ -26,16 +26,17 @@ namespace Snooper
         }
 
         /// <summary>Updates the origin building display.</summary>
-        /// <param name="citizenInstance">The game object instance to get the information from.</param>
-        public override void UpdateOrigin(ref InstanceID citizenInstance)
+        /// <param name="instance">The game object instance to get the information from.</param>
+        public override void UpdateOrigin(ref InstanceID instance)
         {
-            if (citizenInstance.Type != InstanceType.Citizen)
+            if (instance.Type != InstanceType.Citizen)
             {
                 UpdateOrigin(0);
             }
             else
             {
-                UpdateOrigin(citizenInstance.Citizen);
+                ushort instanceId = CitizenManager.instance.m_citizens.m_buffer[instance.Citizen].m_instance;
+                UpdateOrigin(instanceId);
             }
         }
     }

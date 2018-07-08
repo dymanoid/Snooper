@@ -56,10 +56,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CameraHelper.cs" />
-    <Compile Include="CitizenWorldInfoPanelPatch.cs" />
+    <Compile Include="WorldInfoPanelPatches.cs" />
     <Compile Include="CustomCitizenInfoPanel.cs" />
     <Compile Include="CustomInfoPanelBase.cs" />
     <Compile Include="CustomVehicleInfoPanel.cs" />
+    <Compile Include="FastDelegate.cs" />
     <Compile Include="GitVersion.cs" />
     <Compile Include="HumanAIPatches.cs" />
     <Compile Include="IPatch.cs" />

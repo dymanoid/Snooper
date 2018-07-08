@@ -24,7 +24,7 @@ namespace Snooper
         public SnooperMod()
         {
             patcher = new MethodPatcher(
-                CitizenWorldInfoPanelPatch.UpdateBindings,
+                WorldInfoPanelPatches.UpdateBindings,
                 HumanAIPatches.StartMoving1,
                 HumanAIPatches.StartMoving2);
         }
@@ -70,7 +70,8 @@ namespace Snooper
                 return;
             }
 
-            CitizenWorldInfoPanelPatch.CitizenInfoPanel = CustomCitizenInfoPanel.Enable();
+            WorldInfoPanelPatches.CitizenInfoPanel = CustomCitizenInfoPanel.Enable();
+            WorldInfoPanelPatches.VehicleInfoPanel = CustomVehicleInfoPanel.Enable();
         }
 
         /// <summary>
@@ -80,8 +81,10 @@ namespace Snooper
         public override void OnLevelUnloading()
         {
             SafeRevertPatches();
-            CitizenWorldInfoPanelPatch.CitizenInfoPanel?.Disable();
-            CitizenWorldInfoPanelPatch.CitizenInfoPanel = null;
+
+            WorldInfoPanelPatches.CitizenInfoPanel?.Disable();
+            WorldInfoPanelPatches.VehicleInfoPanel?.Disable();
+            WorldInfoPanelPatches.CitizenInfoPanel = null;
         }
 
         private static string GetModPath()

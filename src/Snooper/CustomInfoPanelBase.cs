@@ -19,6 +19,8 @@ namespace Snooper
         private UIPanel originPanel;
         private UILabel originLabel;
         private UIButton originButton;
+        private float newHeight;
+        private float defaultHeight;
 
         /// <summary>Initializes a new instance of the <see cref="CustomInfoPanelBase{T}"/> class.</summary>
         /// <param name="panelName">Name of the game's panel object.</param>
@@ -74,18 +76,18 @@ namespace Snooper
         /// <param name="citizenInstance">The game object instance to get the information from.</param>
         public abstract void UpdateOrigin(ref InstanceID citizenInstance);
 
-        /// <summary>Updates the origin building display using the specified citizen ID. If 0 value is specified,
+        /// <summary>Updates the origin building display using the specified citizen instance ID. If 0 value is specified,
         /// hides the origin building panel.</summary>
-        /// <param name="citizenId">The citizen ID to search the origin building for.</param>
-        protected void UpdateOrigin(uint citizenId)
+        /// <param name="instanceId">The citizen instance ID to search the origin building for.</param>
+        protected void UpdateOrigin(ushort instanceId)
         {
-            if (citizenId == 0)
+            if (instanceId == 0)
             {
                 UpdateVisibility(false);
                 return;
             }
 
-            ushort originBuildingId = GetSourceBuilding(citizenId);
+            ushort originBuildingId = GetSourceBuilding(instanceId);
             if (originBuildingId == 0)
             {
                 UpdateVisibility(false);
@@ -163,20 +165,11 @@ namespace Snooper
             }
         }
 
-        private static ushort GetSourceBuilding(uint citizenId)
+        private static ushort GetSourceBuilding(ushort instanceId)
         {
-            if (citizenId == 0)
-            {
-                return 0;
-            }
-
-            ushort instanceId = CitizenManager.instance.m_citizens.m_buffer[citizenId].m_instance;
-            if (instanceId == 0)
-            {
-                return 0;
-            }
-
-            return CitizenManager.instance.m_instances.m_buffer[instanceId].m_sourceBuilding;
+            return instanceId == 0
+                ? (ushort)0
+                : CitizenManager.instance.m_instances.m_buffer[instanceId].m_sourceBuilding;
         }
 
         private static string GetBuildingName(ushort buildingId)
@@ -203,13 +196,17 @@ namespace Snooper
                 return;
             }
 
+            defaultHeight = itemsPanel.parent?.height ?? 0;
+
             string buttonId = ButtonId + GetType().Name;
             originPanel = UIComponentTools.CreateCopy(targetPanel, itemsPanel);
             originLabel = UIComponentTools.CreateCopy(targetLabel, originPanel, buttonId);
             originButton = UIComponentTools.CreateCopy(targetButton, originPanel, buttonId);
 
+            newHeight = defaultHeight + originPanel.height + originPanel.padding.bottom + originPanel.padding.top;
+
             originButton.eventClick += OriginButtonClick;
-            originLabel.text = "🏠➜➜➜";
+            originLabel.text = "⚑➜";
             originPanel.isVisible = false;
         }
 
@@ -225,15 +222,7 @@ namespace Snooper
             UIComponent parent = originPanel.parent?.parent;
             if (parent != null)
             {
-                float deltaHeigth = originPanel.height + originPanel.padding.bottom + originPanel.padding.top;
-                if (visible)
-                {
-                    parent.height += deltaHeigth;
-                }
-                else
-                {
-                    parent.height -= deltaHeigth;
-                }
+                parent.height = visible ? newHeight : defaultHeight;
             }
         }
     }

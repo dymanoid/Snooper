@@ -1,4 +1,4 @@
-﻿// <copyright file="CitizenWorldInfoPanelPatch.cs" company="dymanoid">
+﻿// <copyright file="WorldInfoPanelPatches.cs" company="dymanoid">
 // Copyright (c) dymanoid. All rights reserved.
 // </copyright>
 
@@ -7,17 +7,19 @@ namespace Snooper
     using System;
     using System.Reflection;
 
-    internal static class CitizenWorldInfoPanelPatch
+    internal static class WorldInfoPanelPatches
     {
         public static CustomCitizenInfoPanel CitizenInfoPanel { get; set; }
 
-        public static IPatch UpdateBindings { get; } = new CitizenWorldInfoPanel_UpdateBindings();
+        public static CustomVehicleInfoPanel VehicleInfoPanel { get; set; }
 
-        internal sealed class CitizenWorldInfoPanel_UpdateBindings : PatchBase
+        public static IPatch UpdateBindings { get; } = new WorldInfoPanel_UpdateBindings();
+
+        internal sealed class WorldInfoPanel_UpdateBindings : PatchBase
         {
             protected override MethodInfo GetMethod()
             {
-                return typeof(CitizenWorldInfoPanel).GetMethod(
+                return typeof(WorldInfoPanel).GetMethod(
                     "UpdateBindings",
                     BindingFlags.Instance | BindingFlags.NonPublic,
                     null,
@@ -29,6 +31,7 @@ namespace Snooper
             private static void Postfix(ref InstanceID ___m_InstanceID)
             {
                 CitizenInfoPanel?.UpdateOrigin(ref ___m_InstanceID);
+                VehicleInfoPanel?.UpdateOrigin(ref ___m_InstanceID);
             }
 #pragma warning restore SA1313 // Parameter names must begin with lower-case letter
         }
