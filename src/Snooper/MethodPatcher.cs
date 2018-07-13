@@ -7,6 +7,7 @@ namespace Snooper
     using System;
     using System.Reflection;
     using Harmony;
+    using UnityEngine;
 
     /// <summary>
     /// A class that uses Harmony library for redirecting the game's methods.
@@ -36,19 +37,13 @@ namespace Snooper
         /// <summary>Applies all patches this object knows about.</summary>
         public void Apply()
         {
-            try
-            {
-                Revert();
-            }
-            catch (Exception ex)
-            {
-                UnityEngine.Debug.LogWarning("The 'Snooper' mod failed to clean up methods before patching: " + ex);
-            }
-
+            Revert();
             foreach (IPatch patch in patches)
             {
                 patch.ApplyPatch(patcher);
             }
+
+            Debug.Log($"The 'Snooper' mod successfully applied {patches.Length} method patches.");
         }
 
         /// <summary>Reverts all patches, if any applied.</summary>
@@ -56,7 +51,14 @@ namespace Snooper
         {
             foreach (IPatch patch in patches)
             {
-                patch.RevertPatch(patcher);
+                try
+                {
+                    patch.RevertPatch(patcher);
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError($"The 'Snooper' mod failed to revert a patch {patch}. Error message: " + ex);
+                }
             }
         }
 

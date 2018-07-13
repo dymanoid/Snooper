@@ -62,7 +62,7 @@ namespace Snooper
             catch (Exception ex)
             {
                 Debug.LogError("The 'Snooper' mod failed to perform method redirections: " + ex);
-                SafeRevertPatches();
+                patcher.Revert();
                 return;
             }
 
@@ -76,25 +76,13 @@ namespace Snooper
         /// </summary>
         public override void OnLevelUnloading()
         {
-            SafeRevertPatches();
+            patcher.Revert();
 
             WorldInfoPanelPatches.CitizenInfoPanel?.Disable();
             WorldInfoPanelPatches.CitizenInfoPanel = null;
 
             WorldInfoPanelPatches.VehicleInfoPanel?.Disable();
             WorldInfoPanelPatches.VehicleInfoPanel = null;
-        }
-
-        private void SafeRevertPatches()
-        {
-            try
-            {
-                patcher.Revert();
-            }
-            catch (Exception ex)
-            {
-                Debug.LogWarning("The 'Snooper' mod failed to revert method redirections: " + ex);
-            }
         }
     }
 }

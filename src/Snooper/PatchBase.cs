@@ -18,7 +18,7 @@ namespace Snooper
         /// <param name="patcher">The patcher object that can perform the patching.</param>
         /// <exception cref="ArgumentNullException">Thrown when the argument is null.</exception>
         /// <exception cref="InvalidOperationException">
-        /// Thrown when no method for patching can be determined, or both the 'Prefix' and 'Postfix' methods are missing
+        /// Thrown when both the 'Prefix' and 'Postfix' methods are missing
         /// in the derived type.
         /// </exception>
         void IPatch.ApplyPatch(IPatcher patcher)
@@ -39,7 +39,7 @@ namespace Snooper
 
             if (method == null)
             {
-                throw new InvalidOperationException("No method specified for patching");
+                return;
             }
 
             MethodInfo prefix = GetType().GetMethod("Prefix", BindingFlags.Static | BindingFlags.NonPublic);
@@ -66,17 +66,19 @@ namespace Snooper
                 throw new ArgumentNullException(nameof(patcher));
             }
 
-            if (method != null)
+            MethodInfo patchedMethod = method ?? GetMethod();
+            if (patchedMethod != null)
             {
-                patcher.RevertPatch(method);
+                patcher.RevertPatch(patchedMethod);
                 method = null;
             }
         }
 
         /// <summary>
         /// When overridden in derived classes, gets the <see cref="MethodInfo"/> instance of the method to patch.
+        /// Can return null if no patching is possible due to some reason.
         /// </summary>
-        /// <returns>A <see cref="MethodInfo"/> instance of the method to patch.</returns>
+        /// <returns>A <see cref="MethodInfo"/> instance of the method to patch, or null.</returns>
         protected abstract MethodInfo GetMethod();
     }
 }
