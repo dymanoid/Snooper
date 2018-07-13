@@ -7,15 +7,21 @@ namespace Snooper
     using System;
     using System.Reflection;
 
+    /// <summary>
+    /// A static class that provides the patch objects for the world info panel game methods.
+    /// </summary>
     internal static class WorldInfoPanelPatches
     {
+        /// <summary>Gets or sets the customized citizen information panel.</summary>
         public static CustomCitizenInfoPanel CitizenInfoPanel { get; set; }
 
+        /// <summary>Gets or sets the customized vehicle information panel.</summary>
         public static CustomVehicleInfoPanel VehicleInfoPanel { get; set; }
 
+        /// <summary>Gets the patch for the update bindings method.</summary>
         public static IPatch UpdateBindings { get; } = new WorldInfoPanel_UpdateBindings();
 
-        internal sealed class WorldInfoPanel_UpdateBindings : PatchBase
+        private sealed class WorldInfoPanel_UpdateBindings : PatchBase
         {
             protected override MethodInfo GetMethod()
             {

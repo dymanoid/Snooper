@@ -16,6 +16,7 @@ namespace Snooper
         private readonly string modVersion = GitVersion.GetAssemblyVersion(typeof(SnooperMod).Assembly);
         private readonly MethodPatcher patcher;
 
+        /// <summary>Initializes a new instance of the <see cref="SnooperMod"/> class.</summary>
         public SnooperMod()
         {
             patcher = new MethodPatcher(
