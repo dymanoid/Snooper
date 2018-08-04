@@ -6,6 +6,7 @@ namespace Snooper
 {
     using System;
     using System.Reflection;
+    using SkyTools.Patching;
 
     /// <summary>
     /// A static class that provides the patch objects for the world info panel game methods.

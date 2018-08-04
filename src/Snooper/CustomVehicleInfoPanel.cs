@@ -5,6 +5,7 @@
 namespace Snooper
 {
     using System;
+    using SkyTools.Patching;
     using UnityEngine;
 
     /// <summary>
@@ -23,8 +24,15 @@ namespace Snooper
         {
             try
             {
-                passengerCarAIGetDriverInstance = FastDelegate.Create<PassengerCarAI, GetDriverInstanceDelegate<PassengerCarAI>>(GetDriverInstanceMethodName);
-                bicycleAIGetDriverInstance = FastDelegate.Create<BicycleAI, GetDriverInstanceDelegate<BicycleAI>>(GetDriverInstanceMethodName);
+                passengerCarAIGetDriverInstance = FastDelegateFactory.Create<GetDriverInstanceDelegate<PassengerCarAI>>(
+                    typeof(PassengerCarAI),
+                    GetDriverInstanceMethodName,
+                    true);
+
+                bicycleAIGetDriverInstance = FastDelegateFactory.Create<GetDriverInstanceDelegate<BicycleAI>>(
+                    typeof(BicycleAI),
+                    GetDriverInstanceMethodName,
+                    true);
             }
             catch (Exception ex)
             {

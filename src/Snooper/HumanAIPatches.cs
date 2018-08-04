@@ -5,6 +5,7 @@
 namespace Snooper
 {
     using System.Reflection;
+    using SkyTools.Patching;
 
     /// <summary>
     /// A static class that provides the patch objects for the human AI game methods.

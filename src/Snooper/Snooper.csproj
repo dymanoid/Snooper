@@ -60,22 +60,10 @@
     <Compile Include="CustomCitizenInfoPanel.cs" />
     <Compile Include="CustomInfoPanelBase.cs" />
     <Compile Include="CustomVehicleInfoPanel.cs" />
-    <Compile Include="FastDelegate.cs" />
-    <Compile Include="GitVersion.cs" />
     <Compile Include="HumanAIPatches.cs" />
-    <Compile Include="IPatch.cs" />
-    <Compile Include="IPatcher.cs" />
-    <Compile Include="MethodPatcher.cs" />
-    <Compile Include="PatchBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SnooperMod.cs" />
     <Compile Include="UIComponentTools.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Harmony\Harmony\Harmony.csproj">
-      <Project>{7101569c-f35f-48f1-b9ba-65b1cf48009b}</Project>
-      <Name>Harmony</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -86,10 +74,16 @@
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SkyTools\src\SkyTools\SkyTools.csproj">
+      <Project>{f83d96ef-857a-4aa4-8c23-7d258dad777d}</Project>
+      <Name>SkyTools</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy /y /q /d "$(TargetPath)" "d:\Data\SteamLibrary\steamapps\workshop\content\255710\1435741602"
-xcopy /y /q /d "$(SolutionDir)Harmony\Harmony\build\$(ConfigurationName)\net35\0Harmony.dll" "d:\Data\SteamLibrary\steamapps\workshop\content\255710\1435741602"</PostBuildEvent>
+xcopy /y /q /d "$(SolutionDir)SkyTools\src\Harmony\Harmony\build\$(ConfigurationName)\net35\0Harmony.dll" "d:\Data\SteamLibrary\steamapps\workshop\content\255710\1435741602"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\GitVersionTask.3.6.5\build\portable-net+sl+win+wpa+wp\GitVersionTask.targets" Condition="Exists('..\packages\GitVersionTask.3.6.5\build\portable-net+sl+win+wpa+wp\GitVersionTask.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
