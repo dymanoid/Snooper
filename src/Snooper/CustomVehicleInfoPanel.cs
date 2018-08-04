@@ -11,7 +11,7 @@ namespace Snooper
     /// <summary>
     /// A customized vehicle info panel that additionally shows the origin building of the owner citizen.
     /// </summary>
-    internal sealed class CustomVehicleInfoPanel : CustomInfoPanelBase<VehicleWorldInfoPanel>
+    internal sealed class CustomVehicleInfoPanel : OriginInfoPanelBase<VehicleWorldInfoPanel>
     {
         private const string GameInfoPanelName = "(Library) CitizenVehicleWorldInfoPanel";
         private const string GetDriverInstanceMethodName = "GetDriverInstance";
@@ -48,12 +48,12 @@ namespace Snooper
         public static CustomVehicleInfoPanel Enable()
         {
             var result = new CustomVehicleInfoPanel(GameInfoPanelName);
-            return result.IsValid ? result : null;
+            return result.Initialize() ? result : null;
         }
 
         /// <summary>Updates the origin building display.</summary>
         /// <param name="instance">The game object instance to get the information from.</param>
-        public override void UpdateOrigin(ref InstanceID instance)
+        public override void UpdateCustomInfo(ref InstanceID instance)
         {
             ushort instanceId = 0;
             try

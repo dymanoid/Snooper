@@ -40,11 +40,11 @@ namespace Snooper
                 switch (__instance)
                 {
                     case CitizenWorldInfoPanel _:
-                        CitizenInfoPanel?.UpdateOrigin(ref ___m_InstanceID);
+                        CitizenInfoPanel?.UpdateCustomInfo(ref ___m_InstanceID);
                         break;
 
                     case VehicleWorldInfoPanel _:
-                        VehicleInfoPanel?.UpdateOrigin(ref ___m_InstanceID);
+                        VehicleInfoPanel?.UpdateCustomInfo(ref ___m_InstanceID);
                         break;
                 }
             }
