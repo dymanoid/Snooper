@@ -7,7 +7,7 @@ namespace Snooper
     /// <summary>
     /// A customized citizen info panel that additionally shows the origin building of the citizen.
     /// </summary>
-    internal sealed class CustomCitizenInfoPanel : CustomInfoPanelBase<HumanWorldInfoPanel>
+    internal sealed class CustomCitizenInfoPanel : OriginInfoPanelBase<HumanWorldInfoPanel>
     {
         private const string GameInfoPanelName = "(Library) CitizenWorldInfoPanel";
 
@@ -22,12 +22,12 @@ namespace Snooper
         public static CustomCitizenInfoPanel Enable()
         {
             var result = new CustomCitizenInfoPanel(GameInfoPanelName);
-            return result.IsValid ? result : null;
+            return result.Initialize() ? result : null;
         }
 
         /// <summary>Updates the origin building display.</summary>
         /// <param name="instance">The game object instance to get the information from.</param>
-        public override void UpdateOrigin(ref InstanceID instance)
+        public override void UpdateCustomInfo(ref InstanceID instance)
         {
             if (instance.Type != InstanceType.Citizen)
             {

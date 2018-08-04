@@ -6,6 +6,8 @@ namespace Snooper
 {
     using System;
     using ICities;
+    using SkyTools.Patching;
+    using SkyTools.Tools;
     using UnityEngine;
 
     /// <summary>
@@ -13,16 +15,22 @@ namespace Snooper
     /// </summary>
     public sealed class SnooperMod : LoadingExtensionBase, IUserMod
     {
+        private const string HarmonyId = "com.cities_skylines.dymanoid.snooper";
+
         private readonly string modVersion = GitVersion.GetAssemblyVersion(typeof(SnooperMod).Assembly);
         private readonly MethodPatcher patcher;
 
         /// <summary>Initializes a new instance of the <see cref="SnooperMod"/> class.</summary>
         public SnooperMod()
         {
-            patcher = new MethodPatcher(
+            IPatch[] patches =
+            {
                 WorldInfoPanelPatches.UpdateBindings,
                 HumanAIPatches.StartMoving1,
-                HumanAIPatches.StartMoving2);
+                HumanAIPatches.StartMoving2
+            };
+
+            patcher = new MethodPatcher(HarmonyId, patches);
         }
 
         /// <summary>
