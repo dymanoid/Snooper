@@ -56,7 +56,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomTouristInfoPanel.cs" />
-    <Compile Include="OriginInfoPanelBase.cs" />
+    <Compile Include="CustomHumanInfoPanelBase.cs" />
+    <Compile Include="SnooperInfoPanelBase.cs" />
     <Compile Include="WorldInfoPanelPatches.cs" />
     <Compile Include="CustomCitizenInfoPanel.cs" />
     <Compile Include="CustomVehicleInfoPanel.cs" />

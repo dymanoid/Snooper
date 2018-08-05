@@ -1,4 +1,4 @@
-﻿// <copyright file="OriginInfoPanelBase.cs" company="dymanoid">
+﻿// <copyright file="SnooperInfoPanelBase.cs" company="dymanoid">
 // Copyright (c) dymanoid. All rights reserved.
 // </copyright>
 
@@ -12,56 +12,61 @@ namespace Snooper
 
     /// <summary>A base class for the customized world info panels.</summary>
     /// <typeparam name="T">The type of the game world info panel to customize.</typeparam>
-    internal abstract class OriginInfoPanelBase<T> : CustomInfoPanelBase<T>
+    internal abstract class SnooperInfoPanelBase<T> : CustomInfoPanelBase<T>
         where T : WorldInfoPanel
     {
-        private const string ComponentId = "OriginBuildingInfo";
-        private const string TargetButtonName = "Target";
+        protected const string TargetButtonName = "Target";
+        private const string OriginComponentId = "OriginBuildingInfo";
 
-        private UIPanel originPanel;
-        private UILabel originLabel;
-        private UIButton originButton;
-
-        /// <summary>Initializes a new instance of the <see cref="OriginInfoPanelBase{T}"/> class.</summary>
+        /// <summary>Initializes a new instance of the <see cref="SnooperInfoPanelBase{T}"/> class.</summary>
         /// <param name="panelName">Name of the game's panel object.</param>
         /// <exception cref="System.ArgumentException">
         /// Thrown when <paramref name="panelName"/> is null or an empty string.
         /// </exception>
-        protected OriginInfoPanelBase(string panelName)
+        protected SnooperInfoPanelBase(string panelName)
             : base(panelName)
         {
         }
 
+        /// <summary>Gets the origin building panel. Valid only after initialization via <see cref="InitializeCore"/>.</summary>
+        protected UIPanel OriginPanel { get; private set; }
+
+        /// <summary>Gets the origin building label. Valid only after initialization via <see cref="InitializeCore"/>.</summary>
+        protected UILabel OriginLabel { get; private set; }
+
+        /// <summary>Gets the origin building button. Valid only after initialization via <see cref="InitializeCore"/>.</summary>
+        protected UIButton OriginButton { get; private set; }
+
         /// <summary>Disables the custom citizen info panel, if it is enabled.</summary>
-        protected override sealed void DisableCore()
+        protected override void DisableCore()
         {
-            if (originPanel == null)
+            if (OriginPanel == null)
             {
                 return;
             }
 
-            if (originLabel != null)
+            if (OriginLabel != null)
             {
-                originPanel.RemoveUIComponent(originLabel);
-                Object.Destroy(originLabel.gameObject);
-                originLabel = null;
+                OriginPanel.RemoveUIComponent(OriginLabel);
+                Object.Destroy(OriginLabel.gameObject);
+                OriginLabel = null;
             }
 
-            if (originButton != null)
+            if (OriginButton != null)
             {
-                originButton.eventClick -= OriginButtonClick;
-                originPanel.RemoveUIComponent(originButton);
-                Object.Destroy(originButton.gameObject);
-                originButton = null;
+                OriginButton.eventClick -= OriginButtonClick;
+                OriginPanel.RemoveUIComponent(OriginButton);
+                Object.Destroy(OriginButton.gameObject);
+                OriginButton = null;
             }
 
-            if (originPanel.parent != null)
+            if (OriginPanel.parent != null)
             {
-                originPanel.parent.RemoveUIComponent(originPanel);
+                OriginPanel.parent.RemoveUIComponent(OriginPanel);
             }
 
-            Object.Destroy(originPanel.gameObject);
-            originPanel = null;
+            Object.Destroy(OriginPanel.gameObject);
+            OriginPanel = null;
         }
 
         /// <summary>Updates the origin building display using the specified citizen instance ID. If 0 value is specified,
@@ -71,21 +76,21 @@ namespace Snooper
         {
             if (instanceId == 0)
             {
-                SetCustomPanelVisibility(originPanel, false);
+                SetCustomPanelVisibility(OriginPanel, false);
                 return;
             }
 
             ushort originBuildingId = GetSourceBuilding(instanceId);
             if (originBuildingId == 0)
             {
-                SetCustomPanelVisibility(originPanel, false);
+                SetCustomPanelVisibility(OriginPanel, false);
             }
             else
             {
-                SetCustomPanelVisibility(originPanel, true);
-                originButton.text = GetBuildingName(originBuildingId);
-                originButton.objectUserData = originBuildingId;
-                UIComponentTools.ShortenTextToFitParent(originButton);
+                SetCustomPanelVisibility(OriginPanel, true);
+                OriginButton.text = GetBuildingName(originBuildingId);
+                OriginButton.objectUserData = originBuildingId;
+                UIComponentTools.ShortenTextToFitParent(OriginButton);
             }
         }
 
@@ -93,20 +98,20 @@ namespace Snooper
         /// Builds up the custom UI objects for the info panel.
         /// </summary>
         /// <returns><c>true</c> on success; otherwise, <c>false</c>.</returns>
-        protected override sealed bool InitializeCore()
+        protected override bool InitializeCore()
         {
             if (!GetUIObjects(InfoPanelName, ItemsPanel, out UIPanel targetPanel, out UILabel targetLabel, out UIButton targetButton))
             {
                 return false;
             }
 
-            originPanel = UIComponentTools.CreateCopy(targetPanel, ItemsPanel);
-            originLabel = UIComponentTools.CreateCopy(targetLabel, originPanel, ComponentId + targetLabel.name);
-            originButton = UIComponentTools.CreateCopy(targetButton, originPanel, ComponentId + targetButton.name);
+            OriginPanel = UIComponentTools.CreateCopy(targetPanel, ItemsPanel);
+            OriginLabel = UIComponentTools.CreateCopy(targetLabel, OriginPanel, OriginComponentId + targetLabel.name);
+            OriginButton = UIComponentTools.CreateCopy(targetButton, OriginPanel, OriginComponentId + targetButton.name);
 
-            originButton.eventClick += OriginButtonClick;
-            originLabel.text = "▣";
-            originPanel.isVisible = false;
+            OriginButton.eventClick += OriginButtonClick;
+            OriginLabel.text = "▣";
+            OriginPanel.isVisible = false;
 
             return true;
         }

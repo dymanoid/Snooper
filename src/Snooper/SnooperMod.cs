@@ -41,7 +41,7 @@ namespace Snooper
         /// <summary>
         /// Gets the description string of this mod.
         /// </summary>
-        public string Description => "Shows the origin buildings where the citizens are moving from. Version: " + modVersion;
+        public string Description => "Shows additional information about citizens and tourists. Version: " + modVersion;
 
         /// <summary>
         /// Called when a game level is loaded. If applicable, activates the Snooper mod

@@ -7,7 +7,7 @@ namespace Snooper
     /// <summary>
     /// A customized citizen info panel that additionally shows the origin building of the toursit.
     /// </summary>
-    internal sealed class CustomTouristInfoPanel : OriginInfoPanelBase<HumanWorldInfoPanel>
+    internal sealed class CustomTouristInfoPanel : CustomHumanInfoPanelBase<HumanWorldInfoPanel>
     {
         private const string GameInfoPanelName = "(Library) TouristWorldInfoPanel";
 
@@ -32,11 +32,13 @@ namespace Snooper
             if (instance.Type != InstanceType.Citizen)
             {
                 UpdateOrigin(0);
+                UpdateCar(0);
             }
             else
             {
                 ushort instanceId = CitizenManager.instance.m_citizens.m_buffer[instance.Citizen].m_instance;
                 UpdateOrigin(instanceId);
+                UpdateCar(instance.Citizen);
             }
         }
     }
