@@ -24,7 +24,7 @@ namespace Snooper
 
         /// <summary>Initializes a new instance of the <see cref="OriginInfoPanelBase{T}"/> class.</summary>
         /// <param name="panelName">Name of the game's panel object.</param>
-        /// <exception cref="ArgumentException">
+        /// <exception cref="System.ArgumentException">
         /// Thrown when <paramref name="panelName"/> is null or an empty string.
         /// </exception>
         protected OriginInfoPanelBase(string panelName)

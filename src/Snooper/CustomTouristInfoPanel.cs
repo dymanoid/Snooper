@@ -5,7 +5,7 @@
 namespace Snooper
 {
     /// <summary>
-    /// A customized citizen info panel that additionally shows the origin building of the citizen.
+    /// A customized citizen info panel that additionally shows the origin building of the toursit.
     /// </summary>
     internal sealed class CustomTouristInfoPanel : OriginInfoPanelBase<HumanWorldInfoPanel>
     {
@@ -16,8 +16,8 @@ namespace Snooper
         {
         }
 
-        /// <summary>Enables the citizen info panel customization. Can return null on failure.</summary>
-        /// <returns>An instance of the <see cref="CustomCitizenInfoPanel"/> object that can be used for disabling
+        /// <summary>Enables the tourist info panel customization. Can return null on failure.</summary>
+        /// <returns>An instance of the <see cref="CustomTouristInfoPanel"/> object that can be used for disabling
         /// the customization, or null when the customization fails.</returns>
         public static CustomTouristInfoPanel Enable()
         {
