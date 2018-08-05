@@ -75,6 +75,7 @@ namespace Snooper
             }
 
             WorldInfoPanelPatches.CitizenInfoPanel = CustomCitizenInfoPanel.Enable();
+            WorldInfoPanelPatches.TouristInfoPanel = CustomTouristInfoPanel.Enable();
             WorldInfoPanelPatches.VehicleInfoPanel = CustomVehicleInfoPanel.Enable();
         }
 
@@ -88,6 +89,9 @@ namespace Snooper
 
             WorldInfoPanelPatches.CitizenInfoPanel?.Disable();
             WorldInfoPanelPatches.CitizenInfoPanel = null;
+
+            WorldInfoPanelPatches.TouristInfoPanel?.Disable();
+            WorldInfoPanelPatches.TouristInfoPanel = null;
 
             WorldInfoPanelPatches.VehicleInfoPanel?.Disable();
             WorldInfoPanelPatches.VehicleInfoPanel = null;

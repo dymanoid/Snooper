@@ -16,6 +16,9 @@ namespace Snooper
         /// <summary>Gets or sets the customized citizen information panel.</summary>
         public static CustomCitizenInfoPanel CitizenInfoPanel { get; set; }
 
+        /// <summary>Gets or sets the customized tourist information panel.</summary>
+        public static CustomTouristInfoPanel TouristInfoPanel { get; set; }
+
         /// <summary>Gets or sets the customized vehicle information panel.</summary>
         public static CustomVehicleInfoPanel VehicleInfoPanel { get; set; }
 
@@ -41,6 +44,10 @@ namespace Snooper
                 {
                     case CitizenWorldInfoPanel _:
                         CitizenInfoPanel?.UpdateCustomInfo(ref ___m_InstanceID);
+                        break;
+
+                    case TouristWorldInfoPanel _:
+                        TouristInfoPanel?.UpdateCustomInfo(ref ___m_InstanceID);
                         break;
 
                     case VehicleWorldInfoPanel _:
