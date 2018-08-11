@@ -72,7 +72,8 @@ namespace Snooper
         /// <summary>Updates the origin building display using the specified citizen instance ID. If 0 value is specified,
         /// hides the origin building panel.</summary>
         /// <param name="instanceId">The citizen instance ID to search the origin building for.</param>
-        protected void UpdateOrigin(ushort instanceId)
+        /// <param name="instanceIndex">The game instance object's index value.</param>
+        protected void UpdateOriginFromInstance(ushort instanceId, uint instanceIndex)
         {
             if (instanceId == 0)
             {
@@ -81,17 +82,26 @@ namespace Snooper
             }
 
             ushort originBuildingId = GetSourceBuilding(instanceId);
-            if (originBuildingId == 0)
+            UpdateOriginFromBuilding(originBuildingId, instanceIndex);
+        }
+
+        /// <summary>Updates the origin building display using the specified building ID. If 0 value is specified,
+        /// hides the origin building panel.</summary>
+        /// <param name="buildingId">The ID of the building to show as origin.</param>
+        /// <param name="instanceIndex">The game instance object's index value.</param>
+        protected void UpdateOriginFromBuilding(ushort buildingId, uint instanceIndex)
+        {
+            if (buildingId == 0)
             {
                 SetCustomPanelVisibility(OriginPanel, false);
+                return;
             }
-            else
-            {
-                SetCustomPanelVisibility(OriginPanel, true);
-                OriginButton.text = GetBuildingName(originBuildingId);
-                OriginButton.objectUserData = originBuildingId;
-                UIComponentTools.ShortenTextToFitParent(OriginButton);
-            }
+
+            SetCustomPanelVisibility(OriginPanel, true);
+            OriginButton.text = GetBuildingName(buildingId, instanceIndex, out bool isObservable);
+            OriginButton.isEnabled = isObservable;
+            OriginButton.objectUserData = buildingId;
+            UIComponentTools.ShortenTextToFitParent(OriginButton);
         }
 
         /// <summary>
@@ -153,11 +163,17 @@ namespace Snooper
                 : CitizenManager.instance.m_instances.m_buffer[instanceId].m_sourceBuilding;
         }
 
-        private static string GetBuildingName(ushort buildingId)
+        private static string GetBuildingName(ushort buildingId, uint instanceIndex, out bool isObservable)
         {
-            return buildingId == 0
-                ? string.Empty
-                : BuildingManager.instance.GetBuildingName(buildingId, InstanceID.Empty);
+            if (buildingId == 0)
+            {
+                isObservable = false;
+                return string.Empty;
+            }
+
+            BuildingInfo buildingInfo = BuildingManager.instance.m_buildings.m_buffer[buildingId].Info;
+            isObservable = buildingInfo != null && !(buildingInfo.m_buildingAI is OutsideConnectionAI);
+            return BuildingManager.instance.GetBuildingName(buildingId, new InstanceID { Building = buildingId, Index = instanceIndex });
         }
 
         private static void OriginButtonClick(UIComponent component, UIMouseEventParameter eventParam)

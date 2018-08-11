@@ -17,7 +17,7 @@ namespace Snooper
         }
 
         /// <summary>Enables the tourist info panel customization. Can return null on failure.</summary>
-        /// <returns>An instance of the <see cref="CustomTouristInfoPanel"/> object that can be used for disabling
+        /// <returns>An instance of the <see cref="CustomTouristInfoPanel"/> class that can be used for disabling
         /// the customization, or null when the customization fails.</returns>
         public static CustomTouristInfoPanel Enable()
         {
@@ -31,13 +31,13 @@ namespace Snooper
         {
             if (instance.Type != InstanceType.Citizen)
             {
-                UpdateOrigin(0);
+                UpdateOriginFromInstance(0, 0);
                 UpdateCar(0);
             }
             else
             {
                 ushort instanceId = CitizenManager.instance.m_citizens.m_buffer[instance.Citizen].m_instance;
-                UpdateOrigin(instanceId);
+                UpdateOriginFromInstance(instanceId, instance.Index);
                 UpdateCar(instance.Citizen);
             }
         }
