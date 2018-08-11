@@ -4,7 +4,7 @@
 
 namespace Snooper
 {
-    using System;
+    using System.Collections.Generic;
     using ICities;
     using SkyTools.Patching;
     using SkyTools.Tools;
@@ -18,20 +18,7 @@ namespace Snooper
         private const string HarmonyId = "com.cities_skylines.dymanoid.snooper";
 
         private readonly string modVersion = GitVersion.GetAssemblyVersion(typeof(SnooperMod).Assembly);
-        private readonly MethodPatcher patcher;
-
-        /// <summary>Initializes a new instance of the <see cref="SnooperMod"/> class.</summary>
-        public SnooperMod()
-        {
-            IPatch[] patches =
-            {
-                WorldInfoPanelPatches.UpdateBindings,
-                HumanAIPatches.StartMoving1,
-                HumanAIPatches.StartMoving2
-            };
-
-            patcher = new MethodPatcher(HarmonyId, patches);
-        }
+        private MethodPatcher patcher;
 
         /// <summary>
         /// Gets the name of this mod.
@@ -63,13 +50,19 @@ namespace Snooper
                     return;
             }
 
-            try
+            IPatch[] patches =
             {
-                patcher.Apply();
-            }
-            catch (Exception ex)
+                WorldInfoPanelPatches.UpdateBindings,
+                HumanAIPatches.StartMoving1,
+                HumanAIPatches.StartMoving2,
+            };
+
+            patcher = new MethodPatcher(HarmonyId, patches);
+
+            HashSet<IPatch> patchedMethods = patcher.Apply();
+            if (patchedMethods.Count != patches.Length)
             {
-                Debug.LogError("The 'Snooper' mod failed to perform method redirections: " + ex);
+                Debug.LogError("The 'Snooper' mod failed to perform method redirections");
                 patcher.Revert();
                 return;
             }
@@ -85,7 +78,8 @@ namespace Snooper
         /// </summary>
         public override void OnLevelUnloading()
         {
-            patcher.Revert();
+            patcher?.Revert();
+            patcher = null;
 
             WorldInfoPanelPatches.CitizenInfoPanel?.Disable();
             WorldInfoPanelPatches.CitizenInfoPanel = null;
