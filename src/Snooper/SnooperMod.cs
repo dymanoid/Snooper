@@ -55,6 +55,7 @@ namespace Snooper
                 WorldInfoPanelPatches.UpdateBindings,
                 HumanAIPatches.StartMoving1,
                 HumanAIPatches.StartMoving2,
+                CargoTruckAIPatches.SetTarget
             };
 
             patcher = new MethodPatcher(HarmonyId, patches);
@@ -70,6 +71,7 @@ namespace Snooper
             WorldInfoPanelPatches.CitizenInfoPanel = CustomCitizenInfoPanel.Enable();
             WorldInfoPanelPatches.TouristInfoPanel = CustomTouristInfoPanel.Enable();
             WorldInfoPanelPatches.CitizenVehicleInfoPanel = CustomCitizenVehicleInfoPanel.Enable();
+            WorldInfoPanelPatches.ServiceVehicleInfoPanel = CustomCityServiceVehicleInfoPanel.Enable();
         }
 
         /// <summary>
@@ -89,6 +91,9 @@ namespace Snooper
 
             WorldInfoPanelPatches.CitizenVehicleInfoPanel?.Disable();
             WorldInfoPanelPatches.CitizenVehicleInfoPanel = null;
+
+            WorldInfoPanelPatches.ServiceVehicleInfoPanel?.Disable();
+            WorldInfoPanelPatches.ServiceVehicleInfoPanel = null;
         }
     }
 }

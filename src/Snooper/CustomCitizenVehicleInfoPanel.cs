@@ -11,7 +11,7 @@ namespace Snooper
     /// <summary>
     /// A customized vehicle info panel that additionally shows the origin building of the owner citizen.
     /// </summary>
-    internal sealed class CustomCitizenVehicleInfoPanel : SnooperInfoPanelBase<VehicleWorldInfoPanel>
+    internal sealed class CustomCitizenVehicleInfoPanel : SnooperInfoPanelBase<CitizenVehicleWorldInfoPanel>
     {
         private const string GameInfoPanelName = "(Library) CitizenVehicleWorldInfoPanel";
         private const string GetDriverInstanceMethodName = "GetDriverInstance";
