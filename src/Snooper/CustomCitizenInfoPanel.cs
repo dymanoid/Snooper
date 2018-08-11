@@ -31,13 +31,13 @@ namespace Snooper
         {
             if (instance.Type != InstanceType.Citizen)
             {
-                UpdateOriginFromInstance(0);
+                UpdateOriginFromInstance(0, 0);
                 UpdateCar(0);
             }
             else
             {
                 ushort instanceId = CitizenManager.instance.m_citizens.m_buffer[instance.Citizen].m_instance;
-                UpdateOriginFromInstance(instanceId);
+                UpdateOriginFromInstance(instanceId, instance.Index);
                 UpdateCar(instance.Citizen);
             }
         }

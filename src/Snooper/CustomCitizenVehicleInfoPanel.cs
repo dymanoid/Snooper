@@ -101,7 +101,7 @@ namespace Snooper
             }
             finally
             {
-                UpdateOriginFromInstance(instanceId);
+                UpdateOriginFromInstance(instanceId, instance.Index);
             }
         }
     }
