@@ -1,4 +1,4 @@
-﻿// <copyright file="CustomVehicleInfoPanel.cs" company="dymanoid">
+﻿// <copyright file="CustomCitizenVehicleInfoPanel.cs" company="dymanoid">
 // Copyright (c) dymanoid. All rights reserved.
 // </copyright>
 
@@ -11,7 +11,7 @@ namespace Snooper
     /// <summary>
     /// A customized vehicle info panel that additionally shows the origin building of the owner citizen.
     /// </summary>
-    internal sealed class CustomVehicleInfoPanel : SnooperInfoPanelBase<VehicleWorldInfoPanel>
+    internal sealed class CustomCitizenVehicleInfoPanel : SnooperInfoPanelBase<VehicleWorldInfoPanel>
     {
         private const string GameInfoPanelName = "(Library) CitizenVehicleWorldInfoPanel";
         private const string GetDriverInstanceMethodName = "GetDriverInstance";
@@ -19,7 +19,7 @@ namespace Snooper
         private GetDriverInstanceDelegate<PassengerCarAI> passengerCarAIGetDriverInstance;
         private GetDriverInstanceDelegate<BicycleAI> bicycleAIGetDriverInstance;
 
-        private CustomVehicleInfoPanel(string panelName)
+        private CustomCitizenVehicleInfoPanel(string panelName)
             : base(panelName)
         {
             try
@@ -43,11 +43,11 @@ namespace Snooper
         private delegate ushort GetDriverInstanceDelegate<T>(T instance, ushort vehicleId, ref Vehicle vehicle);
 
         /// <summary>Enables the vehicle info panel customization. Can return null on failure.</summary>
-        /// <returns>An instance of the <see cref="CustomVehicleInfoPanel"/> object that can be used for disabling
+        /// <returns>An instance of the <see cref="CustomCitizenVehicleInfoPanel"/> class that can be used for disabling
         /// the customization, or null when the customization fails.</returns>
-        public static CustomVehicleInfoPanel Enable()
+        public static CustomCitizenVehicleInfoPanel Enable()
         {
-            var result = new CustomVehicleInfoPanel(GameInfoPanelName);
+            var result = new CustomCitizenVehicleInfoPanel(GameInfoPanelName);
             return result.Initialize() ? result : null;
         }
 
@@ -101,7 +101,7 @@ namespace Snooper
             }
             finally
             {
-                UpdateOrigin(instanceId);
+                UpdateOriginFromInstance(instanceId);
             }
         }
     }

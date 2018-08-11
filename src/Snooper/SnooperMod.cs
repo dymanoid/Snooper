@@ -76,7 +76,7 @@ namespace Snooper
 
             WorldInfoPanelPatches.CitizenInfoPanel = CustomCitizenInfoPanel.Enable();
             WorldInfoPanelPatches.TouristInfoPanel = CustomTouristInfoPanel.Enable();
-            WorldInfoPanelPatches.VehicleInfoPanel = CustomVehicleInfoPanel.Enable();
+            WorldInfoPanelPatches.CitizenVehicleInfoPanel = CustomCitizenVehicleInfoPanel.Enable();
         }
 
         /// <summary>
@@ -93,8 +93,8 @@ namespace Snooper
             WorldInfoPanelPatches.TouristInfoPanel?.Disable();
             WorldInfoPanelPatches.TouristInfoPanel = null;
 
-            WorldInfoPanelPatches.VehicleInfoPanel?.Disable();
-            WorldInfoPanelPatches.VehicleInfoPanel = null;
+            WorldInfoPanelPatches.CitizenVehicleInfoPanel?.Disable();
+            WorldInfoPanelPatches.CitizenVehicleInfoPanel = null;
         }
     }
 }

@@ -19,8 +19,8 @@ namespace Snooper
         /// <summary>Gets or sets the customized tourist information panel.</summary>
         public static CustomTouristInfoPanel TouristInfoPanel { get; set; }
 
-        /// <summary>Gets or sets the customized vehicle information panel.</summary>
-        public static CustomVehicleInfoPanel VehicleInfoPanel { get; set; }
+        /// <summary>Gets or sets the customized citizen vehicle information panel.</summary>
+        public static CustomCitizenVehicleInfoPanel CitizenVehicleInfoPanel { get; set; }
 
         /// <summary>Gets the patch for the update bindings method.</summary>
         public static IPatch UpdateBindings { get; } = new WorldInfoPanel_UpdateBindings();
@@ -51,7 +51,7 @@ namespace Snooper
                         break;
 
                     case VehicleWorldInfoPanel _:
-                        VehicleInfoPanel?.UpdateCustomInfo(ref ___m_InstanceID);
+                        CitizenVehicleInfoPanel?.UpdateCustomInfo(ref ___m_InstanceID);
                         break;
                 }
             }

@@ -72,7 +72,7 @@ namespace Snooper
         /// <summary>Updates the origin building display using the specified citizen instance ID. If 0 value is specified,
         /// hides the origin building panel.</summary>
         /// <param name="instanceId">The citizen instance ID to search the origin building for.</param>
-        protected void UpdateOrigin(ushort instanceId)
+        protected void UpdateOriginFromInstance(ushort instanceId)
         {
             if (instanceId == 0)
             {
@@ -81,17 +81,24 @@ namespace Snooper
             }
 
             ushort originBuildingId = GetSourceBuilding(instanceId);
-            if (originBuildingId == 0)
+            UpdateOriginFromBuilding(originBuildingId);
+        }
+
+        /// <summary>Updates the origin building display using the specified building ID. If 0 value is specified,
+        /// hides the origin building panel.</summary>
+        /// <param name="buildingId">The ID of the building to show as origin.</param>
+        protected void UpdateOriginFromBuilding(ushort buildingId)
+        {
+            if (buildingId == 0)
             {
                 SetCustomPanelVisibility(OriginPanel, false);
+                return;
             }
-            else
-            {
-                SetCustomPanelVisibility(OriginPanel, true);
-                OriginButton.text = GetBuildingName(originBuildingId);
-                OriginButton.objectUserData = originBuildingId;
-                UIComponentTools.ShortenTextToFitParent(OriginButton);
-            }
+
+            SetCustomPanelVisibility(OriginPanel, true);
+            OriginButton.text = GetBuildingName(buildingId);
+            OriginButton.objectUserData = buildingId;
+            UIComponentTools.ShortenTextToFitParent(OriginButton);
         }
 
         /// <summary>
