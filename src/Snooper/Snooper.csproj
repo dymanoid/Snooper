@@ -88,7 +88,7 @@
   <PropertyGroup>
     <PostBuildEvent>xcopy /y /q /d "$(TargetPath)" "d:\Data\SteamLibrary\steamapps\workshop\content\255710\1435741602"
 xcopy /y /q /d "$(SolutionDir)SkyTools\src\bin\$(ConfigurationName)\SkyTools.dll" "d:\Data\SteamLibrary\steamapps\workshop\content\255710\1435741602"
-xcopy /y /q /d "$(SolutionDir)SkyTools\src\Harmony\Harmony\build\$(ConfigurationName)\net35\0Harmony.dll" "d:\Data\SteamLibrary\steamapps\workshop\content\255710\1435741602"</PostBuildEvent>
+xcopy /y /q /d "$(SolutionDir)SkyTools\src\bin\$(ConfigurationName)\0Harmony.dll" "d:\Data\SteamLibrary\steamapps\workshop\content\255710\1435741602"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\packages\GitVersionTask.3.6.5\build\portable-net+sl+win+wpa+wp\GitVersionTask.targets" Condition="Exists('..\packages\GitVersionTask.3.6.5\build\portable-net+sl+win+wpa+wp\GitVersionTask.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
