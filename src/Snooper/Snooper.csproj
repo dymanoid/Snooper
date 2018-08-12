@@ -23,6 +23,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>Snooper.ruleset</CodeAnalysisRuleSet>
     <LangVersion>7.3</LangVersion>
+    <DocumentationFile>..\bin\Debug\Snooper.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>..\bin\Release\</OutputPath>
@@ -33,6 +34,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>Snooper.ruleset</CodeAnalysisRuleSet>
     <LangVersion>7.3</LangVersion>
+    <DocumentationFile>..\bin\Release\Snooper.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
