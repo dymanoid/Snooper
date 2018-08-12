@@ -62,7 +62,8 @@ namespace Snooper
                     new ParameterModifier[0]);
             }
 
-#pragma warning disable SA1313 // Parameter names must begin with lower-case letter
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancy", "RCS1213", Justification = "Harmony patch")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming Rules", "SA1313", Justification = "Harmony patch")]
             private static void Postfix(bool __result, uint citizenID, ushort sourceBuilding)
             {
                 if (__result && sourceBuilding != 0)
@@ -70,8 +71,6 @@ namespace Snooper
                     SetSourceBuilding(citizenID, sourceBuilding);
                 }
             }
-#pragma warning restore SA1313 // Parameter names must begin with lower-case letter
-
         }
 
         private sealed class HumanAI_StartMoving2 : PatchBase
@@ -86,7 +85,8 @@ namespace Snooper
                     new ParameterModifier[0]);
             }
 
-#pragma warning disable SA1313 // Parameter names must begin with lower-case letter
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancy", "RCS1213", Justification = "Harmony patch")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming Rules", "SA1313", Justification = "Harmony patch")]
             private static void Postfix(bool __result, uint citizenID, ushort sourceBuilding)
             {
                 if (__result && sourceBuilding != 0)
@@ -94,7 +94,6 @@ namespace Snooper
                     SetSourceBuilding(citizenID, sourceBuilding);
                 }
             }
-#pragma warning restore SA1313 // Parameter names must begin with lower-case letter
         }
     }
 }

@@ -27,12 +27,15 @@ namespace Snooper
                     new ParameterModifier[0]);
             }
 
-#pragma warning disable SA1313 // Parameter names must begin with lower-case letter
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancy", "RCS1213", Justification = "Harmony patch")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming Rules", "SA1313", Justification = "Harmony patch")]
             private static void Prefix(ref Vehicle data, ref ushort __state)
             {
                 __state = data.m_targetBuilding;
             }
 
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancy", "RCS1213", Justification = "Harmony patch")]
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming Rules", "SA1313", Justification = "Harmony patch")]
             private static void Postfix(ref Vehicle data, ushort targetBuilding, ref ushort __state)
             {
                 if (__state != 0 && targetBuilding == 0 && data.m_touristCount == 0 && (data.m_flags & Vehicle.Flags.GoingBack) != 0)
@@ -43,7 +46,6 @@ namespace Snooper
                     data.m_touristCount = __state;
                 }
             }
-#pragma warning restore SA1313 // Parameter names must begin with lower-case letter
         }
     }
 }
