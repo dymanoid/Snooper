@@ -55,7 +55,7 @@ namespace Snooper
                 WorldInfoPanelPatches.UpdateBindings,
                 HumanAIPatches.StartMoving1,
                 HumanAIPatches.StartMoving2,
-                CargoTruckAIPatches.SetTarget
+                CargoTruckAIPatches.SetTarget,
             };
 
             patcher = new MethodPatcher(HarmonyId, patches);

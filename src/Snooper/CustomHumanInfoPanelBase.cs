@@ -54,10 +54,7 @@ namespace Snooper
                 carButton = null;
             }
 
-            if (carPanel.parent != null)
-            {
-                carPanel.parent.RemoveUIComponent(carPanel);
-            }
+            carPanel.parent?.RemoveUIComponent(carPanel);
 
             Object.Destroy(carPanel.gameObject);
             carPanel = null;

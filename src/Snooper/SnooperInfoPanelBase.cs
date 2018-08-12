@@ -15,7 +15,9 @@ namespace Snooper
     internal abstract class SnooperInfoPanelBase<T> : CustomInfoPanelBase<T>
         where T : WorldInfoPanel
     {
+        /// <summary>The symbolic name of the info panel's target button.</summary>
         protected const string TargetButtonName = "Target";
+
         private const string OriginComponentId = "OriginBuildingInfo";
 
         /// <summary>Initializes a new instance of the <see cref="SnooperInfoPanelBase{T}"/> class.</summary>
@@ -60,10 +62,7 @@ namespace Snooper
                 OriginButton = null;
             }
 
-            if (OriginPanel.parent != null)
-            {
-                OriginPanel.parent.RemoveUIComponent(OriginPanel);
-            }
+            OriginPanel.parent?.RemoveUIComponent(OriginPanel);
 
             Object.Destroy(OriginPanel.gameObject);
             OriginPanel = null;
