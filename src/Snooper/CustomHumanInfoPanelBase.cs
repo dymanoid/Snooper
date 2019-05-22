@@ -30,7 +30,7 @@ namespace Snooper
         }
 
         /// <summary>Disables the custom citizen info panel, if it is enabled.</summary>
-        protected sealed override void DisableCore()
+        protected override void DisableCore()
         {
             base.DisableCore();
 
@@ -89,7 +89,7 @@ namespace Snooper
         /// Builds up the custom UI objects for the info panel.
         /// </summary>
         /// <returns><c>true</c> on success; otherwise, <c>false</c>.</returns>
-        protected sealed override bool InitializeCore()
+        protected override bool InitializeCore()
         {
             bool result = base.InitializeCore();
             if (!result)
