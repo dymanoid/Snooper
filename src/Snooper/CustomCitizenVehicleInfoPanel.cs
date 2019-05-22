@@ -36,7 +36,7 @@ namespace Snooper
             }
             catch (Exception ex)
             {
-                Debug.LogError($"The 'Snooper' mod failed to obtain at least one of the GetDriverInstance methods. Error message: " + ex);
+                Debug.LogError("The 'Snooper' mod failed to obtain at least one of the GetDriverInstance methods. Error message: " + ex);
             }
         }
 

@@ -129,7 +129,6 @@ namespace Snooper
         {
             targetPanel = null;
             targetLabel = null;
-            targetButton = null;
 
             targetButton = itemsPanel.Find<UIButton>(TargetButtonName);
             if (targetButton == null)

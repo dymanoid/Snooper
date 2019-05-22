@@ -29,10 +29,7 @@ namespace Snooper
 
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancy", "RCS1213", Justification = "Harmony patch")]
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming Rules", "SA1313", Justification = "Harmony patch")]
-            private static void Prefix(ref Vehicle data, ref ushort __state)
-            {
-                __state = data.m_targetBuilding;
-            }
+            private static void Prefix(ref Vehicle data, ref ushort __state) => __state = data.m_targetBuilding;
 
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancy", "RCS1213", Justification = "Harmony patch")]
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming Rules", "SA1313", Justification = "Harmony patch")]
