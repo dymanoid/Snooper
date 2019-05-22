@@ -79,7 +79,7 @@ namespace Snooper
         {
             base.DisableCore();
 
-            if (wealthLabel == null)
+            if (wealthPanel == null)
             {
                 return;
             }
