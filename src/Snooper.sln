@@ -1,26 +1,34 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2000
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snooper", "Snooper\Snooper.csproj", "{3A16420B-2BC3-4A65-9948-689CF7132E93}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkyTools", "SkyTools\src\SkyTools\SkyTools.csproj", "{F83D96EF-857A-4AA4-8C23-7D258DAD777D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{EBFFF8DD-CAF2-45D4-93F0-511267757FC7}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
+		GitVersion.yml = GitVersion.yml
+		stylecop.json = stylecop.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|x64 = Debug|x64
-		Release|x64 = Release|x64
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3A16420B-2BC3-4A65-9948-689CF7132E93}.Debug|x64.ActiveCfg = Debug|x64
-		{3A16420B-2BC3-4A65-9948-689CF7132E93}.Debug|x64.Build.0 = Debug|x64
-		{3A16420B-2BC3-4A65-9948-689CF7132E93}.Release|x64.ActiveCfg = Release|x64
-		{3A16420B-2BC3-4A65-9948-689CF7132E93}.Release|x64.Build.0 = Release|x64
-		{F83D96EF-857A-4AA4-8C23-7D258DAD777D}.Debug|x64.ActiveCfg = Debug|x64
-		{F83D96EF-857A-4AA4-8C23-7D258DAD777D}.Debug|x64.Build.0 = Debug|x64
-		{F83D96EF-857A-4AA4-8C23-7D258DAD777D}.Release|x64.ActiveCfg = Release|x64
-		{F83D96EF-857A-4AA4-8C23-7D258DAD777D}.Release|x64.Build.0 = Release|x64
+		{3A16420B-2BC3-4A65-9948-689CF7132E93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A16420B-2BC3-4A65-9948-689CF7132E93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A16420B-2BC3-4A65-9948-689CF7132E93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A16420B-2BC3-4A65-9948-689CF7132E93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F83D96EF-857A-4AA4-8C23-7D258DAD777D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F83D96EF-857A-4AA4-8C23-7D258DAD777D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F83D96EF-857A-4AA4-8C23-7D258DAD777D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F83D96EF-857A-4AA4-8C23-7D258DAD777D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
