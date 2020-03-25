@@ -1,4 +1,4 @@
-﻿// <copyright file="CustomHumanInfoPanelBase.cs" company="dymanoid">
+// <copyright file="CustomHumanInfoPanelBase.cs" company="dymanoid">
 // Copyright (c) dymanoid. All rights reserved.
 // </copyright>
 
@@ -108,19 +108,15 @@ namespace Snooper
             return true;
         }
 
-        private static ushort GetParkedVehicle(uint citizenId)
-        {
-            return citizenId == 0
+        private static ushort GetParkedVehicle(uint citizenId) =>
+            citizenId == 0
                 ? (ushort)0
                 : CitizenManager.instance.m_citizens.m_buffer[citizenId].m_parkedVehicle;
-        }
 
-        private static string GetVehicleName(ushort carId)
-        {
-            return carId == 0
+        private static string GetVehicleName(ushort carId) =>
+            carId == 0
                 ? string.Empty
                 : VehicleManager.instance.GetParkedVehicleName(carId);
-        }
 
         private void CarButtonClick(UIComponent component, UIMouseEventParameter eventParam)
         {
@@ -133,7 +129,7 @@ namespace Snooper
 
             InstanceID instance = default;
             instance.ParkedVehicle = vehicleId;
-            Vector3 position = VehicleManager.instance.m_parkedVehicles.m_buffer[vehicleId].m_position;
+            var position = VehicleManager.instance.m_parkedVehicles.m_buffer[vehicleId].m_position;
 
             ToolsModifierControl.cameraController.SetTarget(instance, position, true);
         }

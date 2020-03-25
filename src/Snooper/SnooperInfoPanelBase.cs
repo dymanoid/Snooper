@@ -1,4 +1,4 @@
-﻿// <copyright file="SnooperInfoPanelBase.cs" company="dymanoid">
+// <copyright file="SnooperInfoPanelBase.cs" company="dymanoid">
 // Copyright (c) dymanoid. All rights reserved.
 // </copyright>
 
@@ -109,7 +109,7 @@ namespace Snooper
         /// <returns><c>true</c> on success; otherwise, <c>false</c>.</returns>
         protected override bool InitializeCore()
         {
-            if (!GetUIObjects(InfoPanelName, ItemsPanel, out UIPanel targetPanel, out UILabel targetLabel, out UIButton targetButton))
+            if (!GetUIObjects(InfoPanelName, ItemsPanel, out var targetPanel, out var targetLabel, out var targetButton))
             {
                 return false;
             }
@@ -154,12 +154,10 @@ namespace Snooper
             return true;
         }
 
-        private static ushort GetSourceBuilding(ushort instanceId)
-        {
-            return instanceId == 0
+        private static ushort GetSourceBuilding(ushort instanceId) =>
+            instanceId == 0
                 ? (ushort)0
                 : CitizenManager.instance.m_instances.m_buffer[instanceId].m_sourceBuilding;
-        }
 
         private static string GetBuildingName(ushort buildingId, uint instanceIndex, out bool isObservable)
         {
@@ -169,7 +167,7 @@ namespace Snooper
                 return string.Empty;
             }
 
-            BuildingInfo buildingInfo = BuildingManager.instance.m_buildings.m_buffer[buildingId].Info;
+            var buildingInfo = BuildingManager.instance.m_buildings.m_buffer[buildingId].Info;
             isObservable = buildingInfo != null && !(buildingInfo.m_buildingAI is OutsideConnectionAI);
             return BuildingManager.instance.GetBuildingName(buildingId, new InstanceID { Building = buildingId, Index = instanceIndex });
         }

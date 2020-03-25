@@ -1,4 +1,4 @@
-﻿// <copyright file="CustomCitizenVehicleInfoPanel.cs" company="dymanoid">
+// <copyright file="CustomCitizenVehicleInfoPanel.cs" company="dymanoid">
 // Copyright (c) dymanoid. All rights reserved.
 // </copyright>
 
@@ -75,7 +75,7 @@ namespace Snooper
                     return;
                 }
 
-                VehicleInfo vehicleInfo = VehicleManager.instance.m_vehicles.m_buffer[vehicleId].Info;
+                var vehicleInfo = VehicleManager.instance.m_vehicles.m_buffer[vehicleId].Info;
 
                 try
                 {

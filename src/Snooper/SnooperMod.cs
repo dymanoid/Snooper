@@ -1,4 +1,4 @@
-﻿// <copyright file="SnooperMod.cs" company="dymanoid">
+// <copyright file="SnooperMod.cs" company="dymanoid">
 // Copyright (c) dymanoid. All rights reserved.
 // </copyright>
 
@@ -60,7 +60,7 @@ namespace Snooper
 
             patcher = new MethodPatcher(HarmonyId, patches);
 
-            HashSet<IPatch> patchedMethods = patcher.Apply();
+            var patchedMethods = patcher.Apply();
             if (patchedMethods.Count != patches.Length)
             {
                 Debug.LogError("The 'Snooper' mod failed to perform method redirections");

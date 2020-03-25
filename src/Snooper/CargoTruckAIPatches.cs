@@ -1,4 +1,4 @@
-﻿// <copyright file="CargoTruckAIPatches.cs" company="dymanoid">
+// <copyright file="CargoTruckAIPatches.cs" company="dymanoid">
 // Copyright (c) dymanoid. All rights reserved.
 // </copyright>
 
@@ -17,15 +17,13 @@ namespace Snooper
 
         private sealed class CargoTruckAI_SetTarget : PatchBase
         {
-            protected override MethodInfo GetMethod()
-            {
-                return typeof(CargoTruckAI).GetMethod(
+            protected override MethodInfo GetMethod() =>
+                typeof(CargoTruckAI).GetMethod(
                     "SetTarget",
                     BindingFlags.Public | BindingFlags.Instance,
                     null,
                     new[] { typeof(ushort), typeof(Vehicle).MakeByRefType(), typeof(ushort) },
                     new ParameterModifier[0]);
-            }
 
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancy", "RCS1213", Justification = "Harmony patch")]
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming Rules", "SA1313", Justification = "Harmony patch")]

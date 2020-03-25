@@ -1,4 +1,4 @@
-﻿// <copyright file="HumanAIPatches.cs" company="dymanoid">
+// <copyright file="HumanAIPatches.cs" company="dymanoid">
 // Copyright (c) dymanoid. All rights reserved.
 // </copyright>
 
@@ -52,15 +52,13 @@ namespace Snooper
 
         private sealed class HumanAI_StartMoving1 : PatchBase
         {
-            protected override MethodInfo GetMethod()
-            {
-                return typeof(HumanAI).GetMethod(
+            protected override MethodInfo GetMethod() =>
+                typeof(HumanAI).GetMethod(
                     "StartMoving",
                     BindingFlags.Instance | BindingFlags.Public,
                     null,
                     new[] { typeof(uint), typeof(Citizen).MakeByRefType(), typeof(ushort), typeof(TransferManager.TransferOffer) },
                     new ParameterModifier[0]);
-            }
 
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancy", "RCS1213", Justification = "Harmony patch")]
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming Rules", "SA1313", Justification = "Harmony patch")]
@@ -75,15 +73,13 @@ namespace Snooper
 
         private sealed class HumanAI_StartMoving2 : PatchBase
         {
-            protected override MethodInfo GetMethod()
-            {
-                return typeof(HumanAI).GetMethod(
+            protected override MethodInfo GetMethod() =>
+                typeof(HumanAI).GetMethod(
                     "StartMoving",
                     BindingFlags.Instance | BindingFlags.Public,
                     null,
                     new[] { typeof(uint), typeof(Citizen).MakeByRefType(), typeof(ushort), typeof(ushort) },
                     new ParameterModifier[0]);
-            }
 
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancy", "RCS1213", Justification = "Harmony patch")]
             [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming Rules", "SA1313", Justification = "Harmony patch")]
