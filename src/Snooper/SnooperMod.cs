@@ -30,6 +30,18 @@ namespace Snooper
         /// </summary>
         public string Description => "Shows additional information about citizens and tourists. Version: " + modVersion;
 
+        /// <summary>Called when this mod is enabled.</summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "Must be instance method due to C:S API")]
+        public void OnEnabled()
+        {
+            Log.SetupDebug(Name);
+            Log.Info("The 'Snooper' mod has been enabled, version: " + modVersion);
+        }
+
+        /// <summary>Called when this mod is disabled.</summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "Must be instance method due to C:S API")]
+        public void OnDisabled() => Log.Info("The 'Snooper' mod has been disabled.");
+
         /// <summary>
         /// Called when a game level is loaded. If applicable, activates the Snooper mod
         /// for the loaded level.

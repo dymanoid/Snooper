@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snooper", "Snooper\Snooper.csproj", "{3A16420B-2BC3-4A65-9948-689CF7132E93}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkyTools", "SkyTools\src\SkyTools\SkyTools.csproj", "{F83D96EF-857A-4AA4-8C23-7D258DAD777D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Snooper", "Snooper\Snooper.csproj", "{3A16420B-2BC3-4A65-9948-689CF7132E93}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{EBFFF8DD-CAF2-45D4-93F0-511267757FC7}"
 	ProjectSection(SolutionItems) = preProject
@@ -25,10 +23,6 @@ Global
 		{3A16420B-2BC3-4A65-9948-689CF7132E93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A16420B-2BC3-4A65-9948-689CF7132E93}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A16420B-2BC3-4A65-9948-689CF7132E93}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F83D96EF-857A-4AA4-8C23-7D258DAD777D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F83D96EF-857A-4AA4-8C23-7D258DAD777D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F83D96EF-857A-4AA4-8C23-7D258DAD777D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F83D96EF-857A-4AA4-8C23-7D258DAD777D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
