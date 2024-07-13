@@ -4,20 +4,14 @@
 
 namespace Snooper
 {
-    using System.Reflection;
-    using SkyTools.Patching;
+    using HarmonyLib;
 
     /// <summary>
     /// A static class that provides the patch objects for the human AI game methods.
     /// </summary>
+    [HarmonyPatch]
     internal static class HumanAIPatches
     {
-        /// <summary>Gets the patch for the start moving method (1st overload).</summary>
-        public static IPatch StartMoving1 { get; } = new HumanAI_StartMoving1();
-
-        /// <summary>Gets the patch for the start moving method (2nd overload).</summary>
-        public static IPatch StartMoving2 { get; } = new HumanAI_StartMoving2();
-
         private static void SetSourceBuilding(uint citizenId, ushort buildingId)
         {
             if (citizenId == 0)
@@ -31,7 +25,7 @@ namespace Snooper
                 return;
             }
 
-            ref CitizenInstance instance = ref CitizenManager.instance.m_instances.m_buffer[instanceId];
+            ref var instance = ref CitizenManager.instance.m_instances.m_buffer[instanceId];
             if (instance.m_sourceBuilding == buildingId)
             {
                 return;
@@ -50,45 +44,26 @@ namespace Snooper
             }
         }
 
-        private sealed class HumanAI_StartMoving1 : PatchBase
+        [HarmonyPatch(typeof(HumanAI), nameof(HumanAI.StartMoving), new[] { typeof(uint), typeof(Citizen), typeof(ushort), typeof(TransferManager.TransferOffer), }, new ArgumentType[] { ArgumentType.Normal, ArgumentType.Ref, ArgumentType.Normal, ArgumentType.Normal, })]
+        [HarmonyPostfix]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming Rules", "SA1313", Justification = "Harmony patch")]
+        private static void StartMovingPatch1(bool __result, uint citizenID, ushort sourceBuilding)
         {
-            protected override MethodInfo GetMethod() =>
-                typeof(HumanAI).GetMethod(
-                    "StartMoving",
-                    BindingFlags.Instance | BindingFlags.Public,
-                    null,
-                    new[] { typeof(uint), typeof(Citizen).MakeByRefType(), typeof(ushort), typeof(TransferManager.TransferOffer) },
-                    new ParameterModifier[0]);
-
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancy", "RCS1213", Justification = "Harmony patch")]
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming Rules", "SA1313", Justification = "Harmony patch")]
-            private static void Postfix(bool __result, uint citizenID, ushort sourceBuilding)
+            if (__result && sourceBuilding != 0)
             {
-                if (__result && sourceBuilding != 0)
-                {
-                    SetSourceBuilding(citizenID, sourceBuilding);
-                }
+                SetSourceBuilding(citizenID, sourceBuilding);
             }
         }
 
-        private sealed class HumanAI_StartMoving2 : PatchBase
-        {
-            protected override MethodInfo GetMethod() =>
-                typeof(HumanAI).GetMethod(
-                    "StartMoving",
-                    BindingFlags.Instance | BindingFlags.Public,
-                    null,
-                    new[] { typeof(uint), typeof(Citizen).MakeByRefType(), typeof(ushort), typeof(ushort) },
-                    new ParameterModifier[0]);
+        [HarmonyPatch(typeof(HumanAI), nameof(HumanAI.StartMoving), new[] { typeof(uint), typeof(Citizen), typeof(ushort), typeof(ushort), }, new ArgumentType[] { ArgumentType.Normal, ArgumentType.Ref, ArgumentType.Normal, ArgumentType.Normal, })]
+        [HarmonyPostfix]
 
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Redundancy", "RCS1213", Justification = "Harmony patch")]
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming Rules", "SA1313", Justification = "Harmony patch")]
-            private static void Postfix(bool __result, uint citizenID, ushort sourceBuilding)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Naming Rules", "SA1313", Justification = "Harmony patch")]
+        private static void StartMovingPatch2(bool __result, uint citizenID, ushort sourceBuilding)
+        {
+            if (__result && sourceBuilding != 0)
             {
-                if (__result && sourceBuilding != 0)
-                {
-                    SetSourceBuilding(citizenID, sourceBuilding);
-                }
+                SetSourceBuilding(citizenID, sourceBuilding);
             }
         }
     }

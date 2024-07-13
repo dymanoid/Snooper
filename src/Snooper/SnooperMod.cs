@@ -4,11 +4,8 @@
 
 namespace Snooper
 {
-    using System.Collections.Generic;
     using ICities;
-    using SkyTools.Patching;
     using SkyTools.Tools;
-    using UnityEngine;
 
     /// <summary>
     /// The main class of the Snooper mod.
@@ -18,7 +15,6 @@ namespace Snooper
         private const string HarmonyId = "com.cities_skylines.dymanoid.snooper";
 
         private readonly string modVersion = GitVersion.GetAssemblyVersion(typeof(SnooperMod).Assembly);
-        private MethodPatcher patcher;
 
         /// <summary>
         /// Gets the name of this mod.
@@ -62,23 +58,7 @@ namespace Snooper
                     return;
             }
 
-            IPatch[] patches =
-            {
-                WorldInfoPanelPatches.UpdateBindings,
-                HumanAIPatches.StartMoving1,
-                HumanAIPatches.StartMoving2,
-                CargoTruckAIPatches.SetTarget,
-            };
-
-            patcher = new MethodPatcher(HarmonyId, patches);
-
-            var patchedMethods = patcher.Apply();
-            if (patchedMethods.Count != patches.Length)
-            {
-                Debug.LogError("The 'Snooper' mod failed to perform method redirections");
-                patcher.Revert();
-                return;
-            }
+            Utils.HarmonyPatcher.PatchOnReady(typeof(SnooperMod).Assembly, HarmonyId);
 
             WorldInfoPanelPatches.CitizenInfoPanel = CustomCitizenInfoPanel.Enable();
             WorldInfoPanelPatches.TouristInfoPanel = CustomTouristInfoPanel.Enable();
@@ -92,8 +72,7 @@ namespace Snooper
         /// </summary>
         public override void OnLevelUnloading()
         {
-            patcher?.Revert();
-            patcher = null;
+            Utils.HarmonyPatcher.TryUnpatch(HarmonyId);
 
             WorldInfoPanelPatches.CitizenInfoPanel?.Disable();
             WorldInfoPanelPatches.CitizenInfoPanel = null;

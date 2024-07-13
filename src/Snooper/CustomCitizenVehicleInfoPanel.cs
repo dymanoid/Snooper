@@ -5,7 +5,7 @@
 namespace Snooper
 {
     using System;
-    using SkyTools.Patching;
+    using Snooper.Utils;
     using UnityEngine;
 
     /// <summary>

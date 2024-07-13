@@ -15,12 +15,19 @@
     <OutputPath>..\bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="SkyTools.Patching" Version="2.1.0" />
-    <PackageReference Include="GitVersionTask" Version="5.2.4" />
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8" />
-    <PackageReference Include="Roslynator.Analyzers" Version="2.3.0" />
-    <PackageReference Include="Roslynator.CodeAnalysis.Analyzers" Version="1.0.0-beta" />
-    <PackageReference Include="StyleCop.Analyzers.Unstable" Version="1.2.0.164" />
+    <PackageReference Include="CitiesHarmony.API" Version="2.2.0" />
+    <PackageReference Include="GitVersion.MsBuild" Version="5.12.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="8.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Roslynator.Analyzers" Version="4.12.4" />
+    <PackageReference Include="Roslynator.CodeAnalysis.Analyzers" Version="4.12.4" />
+    <PackageReference Include="SkyTools.Common" Version="2.1.0" />
+    <PackageReference Include="StyleCop.Analyzers.Unstable" Version="1.2.0.556" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp" />
@@ -36,6 +43,7 @@
       <TargetBinaries Include="$(OutputPath)*.dll" />
     </ItemGroup>
     <Message Text="Deploying the mod package to: $(CitiesSkylinesModDir)" Importance="high" />
-    <Copy SourceFiles="@(TargetBinaries)" DestinationFolder="$(CitiesSkylinesModDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(TargetBinaries)" DestinationFolder="$(CitiesSkylinesModDir)"
+      SkipUnchangedFiles="true" />
   </Target>
 </Project>
